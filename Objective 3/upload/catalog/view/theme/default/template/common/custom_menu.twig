@@ -1,0 +1,36 @@
+<div class="container">
+  <ul class="nav-menu">
+            {% for key, values in menus %}
+                {% if values is not iterable %}
+                    {{ "<li><a href='#'>" ~ values ~ "</a></li>" }}
+                {% else %}
+                    {{ "<li><a href='#'>" ~ values[0] ~ "</a>" }}
+                    {% for i in (values[1]|length - 1) %} 
+                        {% if values[1][i] is not iterable %}
+                            {% if i == 0 %}
+                                {{ "<ul>" }}
+                            {% endif %}
+                            {{ "<li><a href='#'>" ~ values[1][i] ~ "</a>" }}
+                            {% if i % 10 == 0 and i > 9 %}
+                                {{ "</ul><ul style='left:" ~ (i / 10 * 192) ~ "px;'>" }}
+                            {% endif %}
+                            {% if i == (values[1]|length - 1) %}
+                                {{ "</ul></li>" }}
+                            {% endif %}
+                        {% else %}
+                            {{ "<li><a href='#'>" ~ values[1][i][0] ~ "</a><ul>" }}
+                            {% for j in (values[1][i][1]|length - 1) %}
+                                {% if j % 10 == 0 and j > 9 %}
+                                    {{ "</ul><ul style='left:" ~ (j / 10 * 192 + 192) ~ "px;'>" }}
+                                {% endif %}
+                                {{ "<li><a href='#'>" ~ values[1][i][1][j] ~ "</a></li>" }}
+                                {% if j == (values[1][i][1]|length - 1) %}
+                                    {{ "</ul></li>" }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+</div>

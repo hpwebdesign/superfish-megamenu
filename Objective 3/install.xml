@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Custom Menu</name>
+    <version>1.9</version>
+    <author>Zaki Sulistya</author>
+    <link>https://zaki-sulistya.com/</link>
+    <code>CusTomMenu</code>
+    <description>Momotaro</description>
+    <file path="admin/controller/common/header.php">
+        <operation>
+            <search><![CDATA[public function index() {]]></search>
+            <add position="after"><![CDATA[
+            $this->document->addStyle('view/stylesheet/bootstrap2-toggle.min.css');
+            $this->document->addScript('view/javascript/bootstrap2-toggle.min.js');
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search><![CDATA[public function index() {]]></search>
+            <add position="after"><![CDATA[
+            $this->document->addStyle('catalog/view/theme/default/stylesheet/custom_menu.css');
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/common/menu.php">
+        <operation>
+            <search><![CDATA[public function index() {]]></search>
+            <add position="after"><![CDATA[
+            $menus['home'] = 'Home';
+            $menus['alat_pertanian'] = array('Alat Pertanian', array('Berkebun', 'Hidroponik', 'Polybag', 'Selang Irigasi', 'Spare Part', 'Spryer'));
+            $menus['benih'] = array(
+                'Benih', 
+                    array(
+                        'Bayam', 
+                        'Blewah', 
+                        'Buncis', 
+                        array('Cabe', array('Cabe Keriting', 'Cabe Merah', 'Cabe Rawit')),
+                        'Daun Bawang',
+                        'Jagung', 
+                        'Jagung Manis',
+                        'Kacang Panjang',
+                        'Kangkung',
+                        'Kembang Kol',
+                        'Kol',
+                        'Labu', 
+                        'Melon',  
+                        'Mentimun',  
+                        'Oyong',
+                        'Pare', 
+                        'Pepaya', 
+                        'Sawi', 
+                        'Seledri',
+                        array('Semangka', array('Semangka Berbiji', 'Semangka Inul', 'Semangka Tanpa Biji', 'Semangka Tanpa Biji 1', 'Semangka Tanpa Biji 2', 'Semangka Tanpa Biji 3', 'Semangka Tanpa Biji 4', 'Semangka Tanpa Biji 5', 'Semangka Tanpa Biji 6', 'Semangka Tanpa Biji 7', 'Semangka Tanpa Biji 8', 'Semangka Tanpa Biji 9', 'Semangka Tanpa Biji 10')),
+                        'Terong',
+                        'Tomat',
+                        'Wortel'));
+            $menus['pestisida'] = array('Pestisida', array('Bakterisida', 'Fungisida', 'Herbisida', 'Insektisida', 'Nematisida', 'Perekat', 'Rodentisida'));
+            $data['menus'] = $menus;
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/common/menu.php">
+        <operation>
+            <search><![CDATA[return $this->load->view('common/menu', $data);]]></search>
+            <add position="replace"><![CDATA[
+            if($this->config->get('module_custom_menu_status')){
+                return $this->load->view('common/custom_menu', $data);
+            } else {
+                return $this->load->view('common/menu', $data);
+            }
+            ]]></add>
+        </operation>
+    </file>
+</modification>
