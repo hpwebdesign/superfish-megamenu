@@ -1,2 +1,2 @@
-# superfish-megamenu
-Superfish Megamenu
+# Superfish Megamenu
+- Just random custom menu
